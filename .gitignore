@@ -4,9 +4,9 @@ out
 build
 .idea
 .settings
-lib/**/*sources.jar
+**/*sources.jar
 
 #files
 /*.iml
 /*.mf
-src/**/*.pdf
+**/*.pdf
