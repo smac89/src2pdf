@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="pygments">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/pygments/pygments-2.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/pygments/pygments-2.0.1-sources.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
