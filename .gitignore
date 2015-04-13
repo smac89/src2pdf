@@ -2,6 +2,8 @@
 bin
 out
 build
+.idea
+.settings
 
 #files
 *.iml
