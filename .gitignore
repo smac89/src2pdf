@@ -5,6 +5,7 @@ build
 .idea
 .settings
 **/*sources.jar
+**/*javadoc.jar
 
 #files
 /*.iml
