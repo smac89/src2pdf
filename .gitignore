@@ -3,7 +3,9 @@ bin
 out
 build
 .settings
+**/*sources.jar
 
 #files
 /*.iml
 /*.mf
+**/*.pdf
