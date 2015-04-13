@@ -1,0 +1,9 @@
+#folders
+bin
+out
+build
+
+#files
+*.iml
+*.mf
+_*
