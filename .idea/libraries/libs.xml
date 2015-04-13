@@ -1,0 +1,35 @@
+<component name="libraryTable">
+  <library name="libs">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/libs" />
+      <root url="file://$PROJECT_DIR$/libs/flying-saucer" />
+      <root url="file://$PROJECT_DIR$/libs/guava" />
+      <root url="file://$PROJECT_DIR$/libs/itextpdf" />
+      <root url="file://$PROJECT_DIR$/libs/Jsoup" />
+      <root url="file://$PROJECT_DIR$/libs/jython" />
+      <root url="file://$PROJECT_DIR$/libs/miglayout" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/libs/flying-saucer" />
+      <root url="file://$PROJECT_DIR$/libs/guava" />
+      <root url="file://$PROJECT_DIR$/libs/itextpdf" />
+      <root url="file://$PROJECT_DIR$/libs/Jsoup" />
+      <root url="file://$PROJECT_DIR$/libs/jython" />
+      <root url="file://$PROJECT_DIR$/libs/miglayout" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/libs" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/libs/flying-saucer" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/libs/guava" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/libs/itextpdf" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/libs/Jsoup" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/libs/jython" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/libs/miglayout" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/libs/flying-saucer" recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$PROJECT_DIR$/libs/guava" recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$PROJECT_DIR$/libs/itextpdf" recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$PROJECT_DIR$/libs/Jsoup" recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$PROJECT_DIR$/libs/jython" recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$PROJECT_DIR$/libs/miglayout" recursive="false" type="SOURCES" />
+  </library>
+</component>
