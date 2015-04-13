@@ -2,10 +2,11 @@
 bin
 out
 build
+.idea
 .settings
-**/*sources.jar
+lib/**/*sources.jar
 
 #files
 /*.iml
 /*.mf
-**/*.pdf
+src/**/*.pdf
