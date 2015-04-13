@@ -1,7 +1,12 @@
 package view;
 
 import com.google.common.base.Joiner;
+import interfaces.Controller;
+import interfaces.View;
 import interfaces.ViewInterface;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import models.AppConstants;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,7 +40,7 @@ public class TopText extends JPanel implements ComponentListener, ViewInterface 
 
         // Calculate the length of the full string
         FontMetrics fmet = graphics.getFontMetrics(graphics.getFont());
-        List<String> rows = new ArrayList<String>();
+        List<String> rows = new ArrayList<>();
 
         int textlen = (int) Math
                 .min(fmet.stringWidth(Joiner.on(' ').join(tokens)),
@@ -43,10 +48,9 @@ public class TopText extends JPanel implements ComponentListener, ViewInterface 
 
         // Get the words that should fit on each line
         for (int i = 0; i < tokens.size(); ) {
-            List<String> words = new ArrayList<String>();
+            List<String> words = new ArrayList<>();
             for (int genWidth = 0; i < tokens.size() && genWidth < textlen; i++) {
                 genWidth += fmet.stringWidth(tokens.get(i));
-                ;
                 words.add(tokens.get(i));
                 if (genWidth >= textlen || (i + 1 == tokens.size())) {
                     rows.add(Joiner.on(' ').join(words));
@@ -122,5 +126,14 @@ public class TopText extends JPanel implements ComponentListener, ViewInterface 
     @Override
     public void showMessage(String msg, int msgType) throws UnsupportedOperationException {
         throw new UnsupportedOperationException();
+    }
+
+    private static class TopMessage extends StackPane implements View {
+        private Label label;
+
+        @Override
+        public void initialize(Controller controller) {
+            label = new Label(AppConstants.TITLE);
+        }
     }
 }
