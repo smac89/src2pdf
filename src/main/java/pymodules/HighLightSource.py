@@ -1,7 +1,7 @@
+from com.google.common.eventbus import AsyncEventBus
 from java.util import Observable
 from java.util.concurrent import Executors
 
-from com.google.common.eventbus import AsyncEventBus
 import models.AsynchronousConversionEvent as AsyncEvent
 import models.AsynchronousConversionEvent.ACTION as ACTION
 

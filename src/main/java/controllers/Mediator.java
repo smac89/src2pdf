@@ -15,8 +15,6 @@ import view.TopText;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -39,43 +37,42 @@ public class Mediator implements Controller {
     private Mediator() {
         JProgressBar bar = new JProgressBar();
         bar.setStringPainted(true);
-        JOptionPane.showOptionDialog(null, bar, "Loading...", JOptionPane.DEFAULT_OPTION,
-                JOptionPane.INFORMATION_MESSAGE, null, new Object[]{}, null);
 
         SwingWorker<PythonInterpreter, Void> worker = new SwingWorker<PythonInterpreter, Void>() {
             @Override
             protected PythonInterpreter doInBackground() {
+
                 PythonInterpreter pyInt = new PythonInterpreter();
                 setProgress(10);
                 pyInt.exec("from pymodules.PyInteraction import *");
-                setProgress(40);
+                setProgress(50);
                 pyInt.exec("from pymodules.HighLightSource import *");
-                setProgress(40);
+                setProgress(90);
                 return pyInt;
             }
+
 
             @Override
             protected void done() {
                 try {
                     pi = get();
                     bar.getParent().setVisible(false);
-                    setProgress(10);
+                    setProgress(100);
                 } catch (InterruptedException | ExecutionException e) {
                 }
             }
         };
 
-        worker.addPropertyChangeListener(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals("progress")) {
-                    System.out.println(evt.getNewValue());
-                    bar.setValue(bar.getValue() + (Integer) evt.getNewValue());
-                }
+        worker.addPropertyChangeListener(evt -> {
+            if (evt.getPropertyName().equals("progress")) {
+                System.out.println(evt.getNewValue());
+                bar.setValue(bar.getValue() + (Integer) evt.getNewValue());
             }
         });
 
         worker.execute();
+        System.out.println(JOptionPane.showOptionDialog(null, bar, "Loading...", JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null));
     }
 
     public static void start() {
