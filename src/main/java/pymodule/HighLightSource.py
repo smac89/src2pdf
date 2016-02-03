@@ -15,7 +15,6 @@ class HighLight(Observable):
     def __init__(self):
         self.changeUpdate = AsyncEventBus("HighLight", Executors.newCachedThreadPool())
 
-
     def addObserver(self, observer):
         import interfaces.ProgressListener as ProgressListener
 
@@ -23,25 +22,23 @@ class HighLight(Observable):
             raise TypeError("object of type interfaces.ProgressListener expected")
         self.changeUpdate.register(observer)
 
-
     def setComponents(self, **data):
         from pygments.formatters.html import HtmlFormatter
         from pygments.lexers import get_lexer_by_name
 
         options = dict(
-            [('style', data.get('style', 'colorful')),
-             ('linenos', 'inline'),
-             ('noclasses', True),
-             ('prestyles', 'margin:0;'),
-             ('cssstyles', ("overflow: auto;"
-                            "width: auto;"
-                            "border:double black;"
-                            "border-width:.1em .1em .1em .2em;"
-                            "padding:.2em .2em;"))])
+                [('style', data.get('style', 'colorful')),
+                 ('linenos', 'inline'),
+                 ('noclasses', True),
+                 ('prestyles', 'margin:0;'),
+                 ('cssstyles', ("overflow: auto;"
+                                "width: auto;"
+                                "border:double black;"
+                                "border-width:.1em .1em .1em .2em;"
+                                "padding:.2em .2em;"))])
 
         self.lexer = get_lexer_by_name(data.get('lexer', 'text'))
         self.formatter = HtmlFormatter(**options)
-
 
     def highlight_files(self, fnames):
         from pygments import highlight
@@ -72,7 +69,6 @@ class HighLight(Observable):
             doc.head().html(st).after(doc.getElementsByTag('div').first())
 
             yield doc
-
 
     def file_to_string(self, filename):
         """

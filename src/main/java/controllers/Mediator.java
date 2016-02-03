@@ -43,11 +43,14 @@ public class Mediator implements Controller {
             protected PythonInterpreter doInBackground() {
 
                 PythonInterpreter pyInt = new PythonInterpreter();
+                pyInt.getSystemState().path.add(System.getProperty("project.sources"));
+
                 setProgress(10);
-                pyInt.exec("from pymodules.PyInteraction import *");
-                setProgress(50);
-                pyInt.exec("from pymodules.HighLightSource import *");
-                setProgress(90);
+                pyInt.exec("from pymodule.PyInteraction import *");
+
+                setProgress(40);
+                pyInt.exec("from pymodule.HighLightSource import *");
+                setProgress(40);
                 return pyInt;
             }
 
@@ -56,23 +59,31 @@ public class Mediator implements Controller {
             protected void done() {
                 try {
                     pi = get();
-                    bar.getParent().setVisible(false);
-                    setProgress(100);
+                    setProgress(10);
                 } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
                 }
             }
         };
 
         worker.addPropertyChangeListener(evt -> {
-            if (evt.getPropertyName().equals("progress")) {
-                System.out.println(evt.getNewValue());
-                bar.setValue(bar.getValue() + (Integer) evt.getNewValue());
+            String evtType = evt.getPropertyName();
+            Object evtValue = evt.getNewValue();
+
+            if (evtType.equals("progress")) {
+                bar.setValue(bar.getValue() + (Integer) evtValue);
+            } else if (evtType.equals("state") && evtValue == SwingWorker.StateValue.DONE) {
+                for (Window window : Window.getWindows()) {
+                    if (window instanceof JDialog) {
+                        window.dispose();
+                    }
+                }
             }
         });
 
         worker.execute();
-        System.out.println(JOptionPane.showOptionDialog(null, bar, "Loading...", JOptionPane.DEFAULT_OPTION,
-                JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null));
+        JOptionPane.showOptionDialog(null, bar, "Loading...", JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
     }
 
     public static void start() {
@@ -87,7 +98,7 @@ public class Mediator implements Controller {
             Container c = frame.getContentPane();
             c.add(topPanel, BorderLayout.PAGE_START);
             c.add(interactionPanel, BorderLayout.CENTER);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             frame.pack();
             frame.setVisible(true);
         });
