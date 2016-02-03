@@ -13,3 +13,4 @@ build
 **/*.pdf
 target
 libs
+*.class
