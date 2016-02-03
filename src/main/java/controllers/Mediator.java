@@ -142,14 +142,12 @@ public class Mediator implements Controller {
 
     @Override
     public List<String> getLanguages() {
-        List<String> list = (List<String>) pi.eval("get_languages()").__tojava__(List.class);
-        return list;
+        return (List<String>) pi.eval("get_languages()").__tojava__(List.class);
     }
 
     @Override
     public List<String> getStyles() {
-        List<String> list = (List<String>) pi.eval("get_styles()").__tojava__(List.class);
-        return list;
+        return (List<String>) pi.eval("get_styles()").__tojava__(List.class);
     }
 
     @Override

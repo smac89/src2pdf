@@ -1,8 +1,5 @@
 package view;
 
-import com.google.common.base.Joiner;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterables;
 import interfaces.Controller;
 import interfaces.UserChoices;
 import interfaces.ViewInterface;
@@ -27,6 +24,7 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
+import java.util.stream.Collectors;
 
 public class InteractionPanel extends JPanel implements ViewInterface, UserChoices {
 
@@ -56,7 +54,7 @@ public class InteractionPanel extends JPanel implements ViewInterface, UserChoic
         super(new MigLayout("fill", "[]5::5[]", "[]5::5[]5::5[]"));
         setBorder(BorderFactory.createRaisedSoftBevelBorder());
         setBackground(new Color(Integer.parseInt("5E303B", 16)));
-        srcFiles = new TreeMap<String, String>();
+        srcFiles = new TreeMap<>();
     }
 
     @Override
@@ -129,14 +127,11 @@ public class InteractionPanel extends JPanel implements ViewInterface, UserChoic
      */
     private JComboBox<String> getLangSelect() {
         JComboBox<String> langSelect =
-                new JComboBox<String>(control.getLanguages().toArray(new String[0]));
+                new JComboBox<>(control.getLanguages().toArray(new String[0]));
         langSelect.setBorder(BorderFactory.createTitledBorder("Language"));
-        langSelect.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED)
-                    lang = (String) e.getItem();
-            }
+        langSelect.addItemListener(e -> {
+            if (e.getStateChange() == ItemEvent.SELECTED)
+                lang = (String) e.getItem();
         });
         return langSelect;
     }
@@ -148,14 +143,11 @@ public class InteractionPanel extends JPanel implements ViewInterface, UserChoic
      */
     private JComboBox<String> getStyleSelect() {
         JComboBox<String> styleSelect =
-                new JComboBox<String>(control.getStyles().toArray(new String[0]));
+                new JComboBox<>(control.getStyles().toArray(new String[0]));
         styleSelect.setBorder(BorderFactory.createTitledBorder("Format Style"));
-        styleSelect.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED)
-                    style = (String) e.getItem();
-            }
+        styleSelect.addItemListener(e -> {
+            if (e.getStateChange() == ItemEvent.SELECTED)
+                style = (String) e.getItem();
         });
         return styleSelect;
     }
@@ -178,9 +170,9 @@ public class InteractionPanel extends JPanel implements ViewInterface, UserChoic
                     srcFiles.clear();
                     try {
                         Files.walkFileTree(Paths.get(dir.toURI()), walkDirectoryTree);
-                        content = Joiner.on('\n').join(srcFiles.keySet());
+                        content = String.join("\n", srcFiles.keySet());
                         dirContent.setText(content);
-                    } catch (IOException e1) {
+                    } catch (IOException ignored) {
                     }
                 }
             }
@@ -294,20 +286,15 @@ public class InteractionPanel extends JPanel implements ViewInterface, UserChoic
                     return;
 
                 final Matcher matcher = p.matcher("");
-                String matchedFiles =
-                        Joiner.on('\n').join(
-                                Iterables.filter(srcFiles.keySet(), new Predicate<String>() {
-                                    @Override
-                                    public boolean apply(String input) {
-                                        return matcher.reset(input).find();
-                                    }
-                                }));
+                String matchedFiles = String.join("\n", srcFiles.keySet().stream()
+                        .filter(input -> matcher.reset(input).find())
+                        .collect(Collectors.toList()));
 
                 if (!matchedFiles.isEmpty()) {
                     dirContent.setText(matchedFiles);
                 } else
                     dirContent.setText(content);
-            } catch (BadLocationException ble) {
+            } catch (BadLocationException ignored) {
             }
         } else
             manualInsert = false;

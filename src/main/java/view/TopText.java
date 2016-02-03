@@ -1,6 +1,5 @@
 package view;
 
-import com.google.common.base.Joiner;
 import interfaces.Controller;
 import interfaces.View;
 import interfaces.ViewInterface;
@@ -43,7 +42,7 @@ public class TopText extends JPanel implements ComponentListener, ViewInterface 
         List<String> rows = new ArrayList<>();
 
         int textlen = (int) Math
-                .min(fmet.stringWidth(Joiner.on(' ').join(tokens)),
+                .min(fmet.stringWidth(String.join(" ", tokens)),
                         getWidth() / 1.5);
 
         // Get the words that should fit on each line
@@ -53,7 +52,7 @@ public class TopText extends JPanel implements ComponentListener, ViewInterface 
                 genWidth += fmet.stringWidth(tokens.get(i));
                 words.add(tokens.get(i));
                 if (genWidth >= textlen || (i + 1 == tokens.size())) {
-                    rows.add(Joiner.on(' ').join(words));
+                    rows.add(String.join(" ", words));
                 }
             }
         }
@@ -91,7 +90,7 @@ public class TopText extends JPanel implements ComponentListener, ViewInterface 
                 heightStart += fmet.getHeight();
             }
         } else {
-            String line = Joiner.on(' ').join(textWords);
+            String line = String.join(" ", textWords);
             int width = fmet.stringWidth(line);
             graphics.drawString(line, getWidth() / 2 - width / 2, getHeight()
                     / 2 - fmet.getHeight() / 2);
